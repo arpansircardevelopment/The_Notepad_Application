@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The Notepad Application</string>
+    <string name="sample_title_string">Title</string>
+    <string name="sample_subtitle_string">Enter note content here</string>
+    <string name="sample_date_string">Date</string>
+    <string name="title_hint">Enter The Title</string>
+    <string name="save_button_string">Save</string>
+    <string name="new_note_string">New Note</string>
+    <string name="edit_button_string">Edit</string>
+    <string name="delete_string">Delete</string>
+</resources>
