@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.kotlin.thenotepadapplication.R
+import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,11 +29,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    private fun initiateSaveMethod(
-        titleString: String,
-        subtitleString: String,
-        dateString: String
-    ) {
+    private fun initiateSaveMethod(notepadEntryPOJO: NotepadEntryPOJO) {
 
     }
 
@@ -42,10 +39,11 @@ class AddEditFragment : Fragment(), View.OnClickListener {
             val titleString: String = fragmentAddEditTitleTextView.text.toString()
             val subtitleString: String = fragmentAddEditSubtitleTextView.text.toString()
             val dateString: String = getDateMethod()
-            initiateSaveMethod(titleString, subtitleString, dateString)
+            initiateSaveMethod(NotepadEntryPOJO(titleString, subtitleString, dateString))
         }
     }
 
+    /**Method to get the date using the SimpleDateFormat class*/
     private fun getDateMethod(): String {
         return SimpleDateFormat("dd-MM-yy", Locale.US).format(Date())
     }
