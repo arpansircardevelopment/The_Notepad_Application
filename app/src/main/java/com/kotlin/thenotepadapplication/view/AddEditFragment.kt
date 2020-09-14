@@ -28,8 +28,22 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    private fun initiateSaveMethod(titleString: String, subtitleString: String, dateString: String) {
+    private fun initiateSaveMethod(
+        titleString: String,
+        subtitleString: String,
+        dateString: String
+    ) {
 
+    }
+
+    /**OnClick method that handles all the clicks performed in the current view.*/
+    override fun onClick(view: View?) {
+        if (view == fragmentAddEditSaveButton) {
+            val titleString: String = fragmentAddEditTitleTextView.text.toString()
+            val subtitleString: String = fragmentAddEditSubtitleTextView.text.toString()
+            val dateString: String = getDateMethod()
+            initiateSaveMethod(titleString, subtitleString, dateString)
+        }
     }
 
     private fun getDateMethod(): String {
@@ -47,16 +61,6 @@ class AddEditFragment : Fragment(), View.OnClickListener {
     /**Method to intercept all the clicks performed in the current View*/
     private fun setOnClickListenerMethod() {
         fragmentAddEditSaveButton.setOnClickListener(this)
-    }
-
-    /**OnClick method that handles all the clicks performed in the current view.*/
-    override fun onClick(view: View?) {
-        if (view == fragmentAddEditSaveButton) {
-            val titleString: String = fragmentAddEditTitleTextView.text.toString()
-            val subtitleString: String = fragmentAddEditSubtitleTextView.text.toString()
-            val dateString: String = getDateMethod()
-            initiateSaveMethod(titleString, subtitleString, dateString)
-        }
     }
 
     companion object {
