@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.setTitle(toolbarTitle)
     }
 
-    /**Method to the onClickListeners for all the required views in the application.*/
+    /**Method to set the onClickListeners for all the required views in the application.*/
     private fun setOnClickListenerMethod() {
         activityMainFloatingActionButton.setOnClickListener(this)
     }
