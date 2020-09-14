@@ -4,14 +4,14 @@ import android.provider.BaseColumns
 
 object NotepadContract {
 
-    private const val SQLITE_CREATE_ENTRY = "CREATE TABLE ${NotepadEntry.TABLE_NAME} (" +
+    const val SQLITE_CREATE_ENTRY = "CREATE TABLE ${NotepadEntry.TABLE_NAME} (" +
             "${BaseColumns._ID} INTEGER PRIMARY KEY, " +
             "${NotepadEntry.COLUMN_TITLE} TEXT, " +
             "${NotepadEntry.COLUMN_SUBTITLE} TEXT, " +
             "${NotepadEntry.COLUMN_DATE} TEXT)"
 
-    private const val DATABASE_NAME: String = "notepad.db"
-    private const val DATABASE_VERSION: Int = 1
+    const val DATABASE_NAME: String = "notepad.db"
+    const val DATABASE_VERSION: Int = 1
 
     object NotepadEntry : BaseColumns {
         const val TABLE_NAME = "entries"
