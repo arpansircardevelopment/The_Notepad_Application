@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kotlin.thenotepadapplication.R
 import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
+import com.kotlin.thenotepadapplication.repository.DatabaseRepository
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,6 +20,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
     private lateinit var fragmentAddEditSaveButton: Button
     private lateinit var fragmentAddEditTitleTextView: TextView
     private lateinit var fragmentAddEditSubtitleTextView: TextView
+    private lateinit var iMainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,15 @@ class AddEditFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initiateSaveMethod(notepadEntryPOJO: NotepadEntryPOJO) {
+        Log.d(TAG, "initiateSaveMethod: Started")
+        val databaseRepository = DatabaseRepository(context!!)
+        databaseRepository.insertMethod(notepadEntryPOJO)
+        iMainActivity.triggerOnBackPressed()
 
+        Log.d(TAG, "initiateSaveMethod: NotepadEntryPOJO Sent To Database Repository Method")
+        databaseRepository.returnMutableLiveData().observe(this, {
+            Toast.makeText(context, "Inserted in row: $it", Toast.LENGTH_SHORT).show()
+        })
     }
 
     /**OnClick method that handles all the clicks performed in the current view.*/
@@ -55,6 +66,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         fragmentAddEditTitleTextView = view.findViewById(R.id.add_edit_fragment_title_edit_text)
         fragmentAddEditSubtitleTextView =
             view.findViewById(R.id.add_edit_fragment_subtitle_edit_text)
+        iMainActivity = activity as MainActivity
     }
 
     /**Method to intercept all the clicks performed in the current View*/

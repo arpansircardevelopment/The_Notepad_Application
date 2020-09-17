@@ -6,7 +6,7 @@ object NotepadContract {
 
     /**Constant SQLite query for creating a new table.*/
     const val SQLITE_CREATE_ENTRY = "CREATE TABLE ${NotepadEntry.TABLE_NAME} (" +
-            "${BaseColumns._ID} PRIMARY KEY" +
+            "${BaseColumns._ID} PRIMARY KEY, " +
             "${NotepadEntry.COLUMN_TITLE} TEXT, " +
             "${NotepadEntry.COLUMN_SUBTITLE} TEXT, " +
             "${NotepadEntry.COLUMN_DATE} TEXT)"

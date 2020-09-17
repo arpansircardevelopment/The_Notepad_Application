@@ -11,8 +11,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kotlin.thenotepadapplication.R
+import com.kotlin.thenotepadapplication.model.IMainActivity
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     private lateinit var activityMainToolbar: Toolbar
     private lateinit var activityMainRecyclerView: RecyclerView
@@ -96,5 +97,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         private const val TAG = "MainActivity"
+    }
+
+    override fun triggerOnBackPressed() {
+        onBackPressed()
     }
 }
