@@ -1,7 +1,6 @@
 package com.kotlin.thenotepadapplication.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,16 +32,17 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         return view
     }
 
+    /**Method to insert the entered text within the database.
+     * The saving mechanism is facilitated using the NotepadEntryPOJO class
+     * This argument is then sent off to the DatabaseRepository class for insertion into the database.*/
     private fun initiateSaveMethod(notepadEntryPOJO: NotepadEntryPOJO) {
-        Log.d(TAG, "initiateSaveMethod: Started")
         val databaseRepository = DatabaseRepository(context!!)
         databaseRepository.insertMethod(notepadEntryPOJO)
         iMainActivity.triggerOnBackPressed()
 
-        Log.d(TAG, "initiateSaveMethod: NotepadEntryPOJO Sent To Database Repository Method")
-        databaseRepository.returnMutableLiveData().observe(this, {
-            Toast.makeText(context, "Inserted in row: $it", Toast.LENGTH_SHORT).show()
-        })
+        databaseRepository.returnMutableLiveData().observe(
+            this,
+            { Toast.makeText(context, "Inserted in row: $it", Toast.LENGTH_SHORT).show() })
     }
 
     /**OnClick method that handles all the clicks performed in the current view.*/

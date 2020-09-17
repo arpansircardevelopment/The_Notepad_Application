@@ -94,6 +94,7 @@ class DatabaseRepository(context: Context) {
         return databaseItems
     }
 
+    /**A method to delete all the data present in the database*/
     fun deleteMethod() {
         val sqLiteDatabase: SQLiteDatabase = notepadEntryDatabaseHelper.writableDatabase
         sqLiteDatabase.delete(NotepadContract.NotepadEntry.TABLE_NAME, null, null)

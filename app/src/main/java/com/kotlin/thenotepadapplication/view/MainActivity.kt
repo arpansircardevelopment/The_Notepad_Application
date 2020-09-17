@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             findViewById(R.id.activity_main_delete_floating_action_button)
     }
 
+    /**Method to delete all the data present in the database*/
     private fun deleteAllNotesMethod() {
         val databaseRepository = DatabaseRepository(applicationContext)
         databaseRepository.deleteMethod()
@@ -115,6 +116,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         private const val TAG = "MainActivity"
     }
 
+    /**Interface method to facilitate fragment-to-activity communication*/
     override fun triggerOnBackPressed() {
         onBackPressed()
     }
