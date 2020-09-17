@@ -3,6 +3,7 @@ package com.kotlin.thenotepadapplication.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kotlin.thenotepadapplication.R
 import com.kotlin.thenotepadapplication.model.IMainActivity
+import com.kotlin.thenotepadapplication.repository.DatabaseRepository
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private lateinit var activityMainConstraintLayout: ConstraintLayout
     private lateinit var activityMainFragmentConstraintLayout: ConstraintLayout
     private lateinit var activityMainFloatingActionButton: FloatingActionButton
+    private lateinit var activityMainDeleteFloatingActionButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +58,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private fun initializeWidgets() {
         activityMainToolbar = findViewById(R.id.activity_main_toolbar_layout)
         activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
-        activityMainFloatingActionButton = findViewById(R.id.activity_main_floating_action_button)
         activityMainConstraintLayout = findViewById(R.id.activity_main_constraint_layout)
+        activityMainFloatingActionButton = findViewById(R.id.activity_main_floating_action_button)
         activityMainFragmentConstraintLayout =
             findViewById(R.id.activity_main_fragment_constraint_layout)
+        activityMainDeleteFloatingActionButton =
+            findViewById(R.id.activity_main_delete_floating_action_button)
+    }
+
+    private fun deleteAllNotesMethod() {
+        val databaseRepository = DatabaseRepository(applicationContext)
+        databaseRepository.deleteMethod()
+        Toast.makeText(this, "All Notes Deleted", Toast.LENGTH_SHORT).show()
     }
 
     /**Method to initialize the Activity toolbar*/
@@ -70,6 +81,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     /**Method to set the onClickListeners for all the required views in the application.*/
     private fun setOnClickListenerMethod() {
         activityMainFloatingActionButton.setOnClickListener(this)
+        activityMainDeleteFloatingActionButton.setOnClickListener(this)
     }
 
     /**Method to intercept all the clicks performed in the current View*/
@@ -78,6 +90,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             val addEditFragment = AddEditFragment()
             val titleString: Int = R.string.new_note_string
             initializeFragmentTransactions(addEditFragment, titleString)
+        }
+
+        if (view == activityMainDeleteFloatingActionButton) {
+            deleteAllNotesMethod()
         }
     }
 

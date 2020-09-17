@@ -14,8 +14,10 @@ import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
  * The repository class isn't usually included with the MVVM architecture, but it recommended for best practices.
  * The ViewModel will be communicating with this Repository class to perform all the operations.*/
 class DatabaseRepository(context: Context) {
-    private val notepadEntryDatabaseHelper: NotepadEntryDatabaseHelper = NotepadEntryDatabaseHelper(context)
+    private val notepadEntryDatabaseHelper: NotepadEntryDatabaseHelper =
+        NotepadEntryDatabaseHelper(context)
     private val rowMutableLiveData: MutableLiveData<Long> = MutableLiveData()
+
 
     /**Method used for performing inserting values into the database */
     fun insertMethod(notepadEntryPOJO: NotepadEntryPOJO) {
@@ -37,7 +39,7 @@ class DatabaseRepository(context: Context) {
         rowMutableLiveData.postValue(rowID)
     }
 
-    fun returnMutableLiveData(): MutableLiveData<Long>{
+    fun returnMutableLiveData(): MutableLiveData<Long> {
         return rowMutableLiveData
     }
 
@@ -90,5 +92,10 @@ class DatabaseRepository(context: Context) {
         }
 
         return databaseItems
+    }
+
+    fun deleteMethod() {
+        val sqLiteDatabase: SQLiteDatabase = notepadEntryDatabaseHelper.writableDatabase
+        sqLiteDatabase.delete(NotepadContract.NotepadEntry.TABLE_NAME, null, null)
     }
 }
