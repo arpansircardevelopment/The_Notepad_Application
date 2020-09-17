@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import androidx.lifecycle.MutableLiveData
 import com.kotlin.thenotepadapplication.model.NotepadContract
 import com.kotlin.thenotepadapplication.model.NotepadEntryDatabaseHelper
 import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
@@ -13,11 +14,11 @@ import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
  * The repository class isn't usually included with the MVVM architecture, but it recommended for best practices.
  * The ViewModel will be communicating with this Repository class to perform all the operations.*/
 class DatabaseRepository(context: Context) {
-    private val notepadEntryDatabaseHelper: NotepadEntryDatabaseHelper =
-        NotepadEntryDatabaseHelper(context)
+    private val notepadEntryDatabaseHelper: NotepadEntryDatabaseHelper = NotepadEntryDatabaseHelper(context)
+    private val rowMutableLiveData: MutableLiveData<Long> = MutableLiveData()
 
     /**Method used for performing inserting values into the database */
-    fun insertMethod(notepadEntryPOJO: NotepadEntryPOJO): Long {
+    fun insertMethod(notepadEntryPOJO: NotepadEntryPOJO) {
         val sqliteDatabase: SQLiteDatabase = notepadEntryDatabaseHelper.writableDatabase
         val insertValues: ContentValues = ContentValues().apply {
             put(NotepadContract.NotepadEntry.COLUMN_TITLE, notepadEntryPOJO.title)
@@ -27,11 +28,17 @@ class DatabaseRepository(context: Context) {
 
         /*Insert queries usually return a long value signifying the row in which the value has been inserted.
         * The calling method for the insertMethod() will display this returned value as a Toast.*/
-        return sqliteDatabase.insert(
+        val rowID: Long = sqliteDatabase.insert(
             NotepadContract.NotepadEntry.TABLE_NAME,
             null,
             insertValues
         )
+
+        rowMutableLiveData.postValue(rowID)
+    }
+
+    fun returnMutableLiveData(): MutableLiveData<Long>{
+        return rowMutableLiveData
     }
 
     /**Method for querying all the details present in the database.
