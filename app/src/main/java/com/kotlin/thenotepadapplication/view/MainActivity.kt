@@ -87,7 +87,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private fun deleteAllNotesMethod() {
         val databaseRepository = DatabaseRepository(applicationContext)
         databaseRepository.deleteMethod()
-        Toast.makeText(this, "All Notes Deleted", Toast.LENGTH_SHORT).show()
+        queryMethod()
+        Toast.makeText(applicationContext, "All Notes Deleted", Toast.LENGTH_SHORT).show()
     }
 
     /**Method to initialize the Activity toolbar*/
@@ -108,7 +109,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             val addEditFragment = AddEditFragment()
             val titleString: Int = R.string.new_note_string
             initializeFragmentTransactions(addEditFragment, titleString)
-            queryMethod()
         }
 
         if (view == activityMainDeleteFloatingActionButton) {
@@ -125,6 +125,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             activityMainFragmentConstraintLayout.visibility = View.INVISIBLE
             activityMainConstraintLayout.visibility = View.VISIBLE
             initializeToolbar(R.string.app_name)
+            queryMethod()
         } else {
             super.onBackPressed()
         }

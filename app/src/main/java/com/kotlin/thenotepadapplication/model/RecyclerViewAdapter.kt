@@ -36,23 +36,18 @@ class RecyclerViewAdapter(private val notesList: ArrayList<NotepadEntryPOJO>) :
         }
 
         private fun countWords(subtitle: String): String {
-            val sentence = subtitle.trim()
-            var count = 0
+            val specifiedLength = 30
 
-            for (i in sentence.indices) {
-                if (sentence[i] == ' ')
-                    count++
-            }
-
-            return if (count <= 10) {
-                sentence
+            return if (subtitle.length <= specifiedLength) {
+                subtitle
             } else {
                 var newSubtitle = ""
 
-                for (i in 0 until 10) {
-                    newSubtitle += sentence[i]
+                for (i in 0 until specifiedLength) {
+                    newSubtitle += subtitle[i]
                 }
-                newSubtitle
+
+                "$newSubtitle..."
             }
         }
     }

@@ -54,8 +54,8 @@ class DatabaseRepository(context: Context) {
         /*The projection specifies the exact columns from which we want to extract data from the database.
         * In this case, the column ID is being omitted as it isn't quite usable in the Views.*/
         val projection = arrayOf(
-            NotepadContract.NotepadEntry.TABLE_NAME,
             NotepadContract.NotepadEntry.COLUMN_TITLE,
+            NotepadContract.NotepadEntry.COLUMN_SUBTITLE,
             NotepadContract.NotepadEntry.COLUMN_DATE
         )
 
