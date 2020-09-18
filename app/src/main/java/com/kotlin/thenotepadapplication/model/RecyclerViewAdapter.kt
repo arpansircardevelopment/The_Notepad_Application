@@ -11,7 +11,8 @@ class RecyclerViewAdapter(private val notesList: ArrayList<NotepadEntryPOJO>) :
     RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.individual_note_layout, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.individual_note_layout, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -30,8 +31,29 @@ class RecyclerViewAdapter(private val notesList: ArrayList<NotepadEntryPOJO>) :
             val dateTextView: TextView = itemView.findViewById(R.id.date_textView)
 
             titleTextView.text = notepadEntryPOJO.title
-            subtitleTextView.text = notepadEntryPOJO.subtitle
+            subtitleTextView.text = countWords(notepadEntryPOJO.subtitle)
             dateTextView.text = notepadEntryPOJO.date
+        }
+
+        private fun countWords(subtitle: String): String {
+            val sentence = subtitle.trim()
+            var count = 0
+
+            for (i in sentence.indices) {
+                if (sentence[i] == ' ')
+                    count++
+            }
+
+            return if (count <= 10) {
+                sentence
+            } else {
+                var newSubtitle = ""
+
+                for (i in 0 until 10) {
+                    newSubtitle += sentence[i]
+                }
+                newSubtitle
+            }
         }
     }
 }

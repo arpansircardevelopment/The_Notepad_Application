@@ -15,14 +15,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kotlin.thenotepadapplication.R
 import com.kotlin.thenotepadapplication.model.IMainActivity
 import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
+import com.kotlin.thenotepadapplication.model.RecyclerViewAdapter
 import com.kotlin.thenotepadapplication.repository.DatabaseRepository
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     private lateinit var activityMainToolbar: Toolbar
     private lateinit var activityMainRecyclerView: RecyclerView
-    private lateinit var activityMainViewAdapter: RecyclerView.Adapter<*>
-    private lateinit var activityMainViewManager: RecyclerView.LayoutManager
     private lateinit var activityMainConstraintLayout: ConstraintLayout
     private lateinit var activityMainFragmentConstraintLayout: ConstraintLayout
     private lateinit var activityMainFloatingActionButton: FloatingActionButton
@@ -36,6 +35,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         initializeToolbar(R.string.app_name)
         initRecyclerView()
         setOnClickListenerMethod()
+        queryMethod()
     }
 
     /**Governing method that overlooks all fragment transactions taking place
@@ -61,14 +61,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     private fun initRecyclerView() {
         activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
-//        activityMainViewManager = LinearLayoutManager(this)
-//        activityMainViewAdapter = TODO
+        activityMainRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
 
-        activityMainRecyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = activityMainViewManager
-            adapter = activityMainViewAdapter
-        }
+    private fun queryMethod() {
+        val databaseRepository = DatabaseRepository(applicationContext)
+        val arrayList: ArrayList<NotepadEntryPOJO> = databaseRepository.queryMethod()
+        val adapter = RecyclerViewAdapter(arrayList)
+        activityMainRecyclerView.adapter = adapter
     }
 
     /**Method to initialize the widgets present in the View*/
@@ -107,6 +108,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             val addEditFragment = AddEditFragment()
             val titleString: Int = R.string.new_note_string
             initializeFragmentTransactions(addEditFragment, titleString)
+            queryMethod()
         }
 
         if (view == activityMainDeleteFloatingActionButton) {
