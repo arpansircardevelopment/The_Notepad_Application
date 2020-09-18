@@ -9,16 +9,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kotlin.thenotepadapplication.R
 import com.kotlin.thenotepadapplication.model.IMainActivity
+import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
 import com.kotlin.thenotepadapplication.repository.DatabaseRepository
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     private lateinit var activityMainToolbar: Toolbar
     private lateinit var activityMainRecyclerView: RecyclerView
+    private lateinit var activityMainViewAdapter: RecyclerView.Adapter<*>
+    private lateinit var activityMainViewManager: RecyclerView.LayoutManager
     private lateinit var activityMainConstraintLayout: ConstraintLayout
     private lateinit var activityMainFragmentConstraintLayout: ConstraintLayout
     private lateinit var activityMainFloatingActionButton: FloatingActionButton
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
         initializeWidgets()
         initializeToolbar(R.string.app_name)
+        initRecyclerView()
         setOnClickListenerMethod()
     }
 
@@ -54,10 +59,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         fragmentTransaction.commit()
     }
 
+    private fun initRecyclerView() {
+        activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
+//        activityMainViewManager = LinearLayoutManager(this)
+//        activityMainViewAdapter = TODO
+
+        activityMainRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = activityMainViewManager
+            adapter = activityMainViewAdapter
+        }
+    }
+
     /**Method to initialize the widgets present in the View*/
     private fun initializeWidgets() {
         activityMainToolbar = findViewById(R.id.activity_main_toolbar_layout)
-        activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
         activityMainConstraintLayout = findViewById(R.id.activity_main_constraint_layout)
         activityMainFloatingActionButton = findViewById(R.id.activity_main_floating_action_button)
         activityMainFragmentConstraintLayout =

@@ -24,7 +24,7 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/nunito"
         android:gravity="start"
-        android:hint="@string/sample_subtitle_string"
+        android:hint="@string/subtitle_hint"
         android:inputType="textMultiLine"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/add_edit_fragment_save_button"
