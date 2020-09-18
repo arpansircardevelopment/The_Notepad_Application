@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
         initializeWidgets()
         initializeToolbar(R.string.app_name)
-        initRecyclerView()
+        initializeRecyclerView()
         setOnClickListenerMethod()
         queryMethod()
     }
@@ -59,12 +59,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         fragmentTransaction.commit()
     }
 
-    private fun initRecyclerView() {
-        activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
-        activityMainRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-    }
-
+    /**The queryMethod() queries all the entries present in the database, only to be displayed in the RecyclerView*/
     private fun queryMethod() {
         val databaseRepository = DatabaseRepository(applicationContext)
         val arrayList: ArrayList<NotepadEntryPOJO> = databaseRepository.queryMethod()
@@ -82,6 +77,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         activityMainDeleteFloatingActionButton =
             findViewById(R.id.activity_main_delete_floating_action_button)
     }
+
+    /**A separate method to initialize the RecyclerView and the other aspects associated with it*/
+    private fun initializeRecyclerView() {
+        activityMainRecyclerView = findViewById(R.id.activity_main_recycler_view)
+        activityMainRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
+
 
     /**Method to delete all the data present in the database*/
     private fun deleteAllNotesMethod() {
@@ -105,12 +108,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     /**Method to intercept all the clicks performed in the current View*/
     override fun onClick(view: View?) {
+
+        /*When the user clicks the activityMainFloatingActionButton, an instance of the AddEditFragment is created.
+        * This instance allows us to start the AddEditFragment for a new note to be created.
+        * Apart from this, the title string for the new note is also created.
+        * This is placed and displayed in the toolbar when the new note is being created. */
         if (view == activityMainFloatingActionButton) {
             val addEditFragment = AddEditFragment()
             val titleString: Int = R.string.new_note_string
             initializeFragmentTransactions(addEditFragment, titleString)
         }
 
+        /*If the user clicks on the activityMainDeleteFloatingActionButton, the deleteAllNotesMethod().
+        * This note promptly goes on to delete all the notes present in the recyclerView.*/
         if (view == activityMainDeleteFloatingActionButton) {
             deleteAllNotesMethod()
         }

@@ -39,6 +39,9 @@ class DatabaseRepository(context: Context) {
         rowMutableLiveData.postValue(rowID)
     }
 
+    /**A method to return a mutableLiveData object to be observed in the MainActivity.
+     * When the value is inserted into the database, the mutableLiveData object has a change in state.
+     * This change is observed in the MainActivity to verify that data has indeed been inserted into the database.*/
     fun returnMutableLiveData(): MutableLiveData<Long> {
         return rowMutableLiveData
     }
