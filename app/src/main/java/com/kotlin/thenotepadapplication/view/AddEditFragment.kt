@@ -42,14 +42,21 @@ class AddEditFragment : Fragment(), View.OnClickListener {
 
         databaseRepository.returnMutableLiveData().observe(
             this,
-            { Toast.makeText(context, "Inserted in row: $it", Toast.LENGTH_SHORT).show() })
+            {
+                Toast.makeText(context, "New Note Created", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     /**OnClick method that handles all the clicks performed in the current view.*/
     override fun onClick(view: View?) {
         if (view == fragmentAddEditSaveButton) {
-            val titleString: String = fragmentAddEditTitleTextView.text.toString()
-            val subtitleString: String = fragmentAddEditSubtitleTextView.text.toString()
+            val titleString: String =
+                fragmentAddEditTitleTextView.text.toString().trim().capitalize(Locale.US)
+
+            val subtitleString: String =
+                fragmentAddEditSubtitleTextView.text.toString().trim().capitalize(Locale.US)
+
             val dateString: String = getDateMethod()
             initiateSaveMethod(NotepadEntryPOJO(titleString, subtitleString, dateString))
         }
