@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         setContentView(R.layout.activity_main)
 
         initializeWidgets()
-        initializeToolbar(R.string.app_name)
+        initializeToolbar(getString(R.string.app_name))
         initializeRecyclerView()
         setOnClickListenerMethod()
         setRecyclerView()
@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
      * Next, depending on the function to be performed, it then segregates the work functions in:
      * 1. the initializeToolbar() method
      * 2. the performFragmentTransactionMethod() method*/
-    private fun initializeFragmentTransactions(fragment: Fragment, toolbarTitle: Int) {
+    private fun initializeFragmentTransactions(fragment: Fragment, toolbarTitle: String) {
         activityMainConstraintLayout.visibility = View.INVISIBLE
-        activityMainFragmentConstraintLayout.visibility = View.VISIBLE
         initializeToolbar(toolbarTitle)
         performFragmentTransactionMethod(fragment)
+        activityMainFragmentConstraintLayout.visibility = View.VISIBLE
     }
 
     /**The performFragmentTransactionMethod() is charged simply with changing the current fragment that's present.
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private fun performFragmentTransactionMethod(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.activity_main_fragment_constraint_layout, fragment)
+        fragmentTransaction.replace(R.id.activity_main_fragment_constraint_layout, fragment)
         fragmentTransaction.commit()
     }
 
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     }
 
     /**Method to initialize the Activity toolbar*/
-    private fun initializeToolbar(toolbarTitle: Int) {
+    private fun initializeToolbar(toolbarTitle: String) {
         setSupportActionBar(activityMainToolbar)
         supportActionBar!!.setTitle(toolbarTitle)
     }
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         if (view == activityMainFloatingActionButton) {
             val addEditFragment = AddEditFragment()
             val titleString: Int = R.string.new_note_string
-            initializeFragmentTransactions(addEditFragment, titleString)
+            initializeFragmentTransactions(addEditFragment, getString(titleString))
         }
 
         /*If the user clicks on the activityMainDeleteFloatingActionButton, the deleteAllNotesMethod().
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         if (activityMainConstraintLayout.visibility == View.INVISIBLE) {
             activityMainFragmentConstraintLayout.visibility = View.INVISIBLE
             activityMainConstraintLayout.visibility = View.VISIBLE
-            initializeToolbar(R.string.app_name)
+            initializeToolbar(getString(R.string.app_name))
             setRecyclerView()
         } else {
             super.onBackPressed()
@@ -156,6 +156,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
 
     override fun onNoteClicked(pos: Int) {
         val arrayList: ArrayList<NotepadEntryPOJO> = queryMethod()
-        Toast.makeText(applicationContext, "${arrayList[pos].title}\n${arrayList[pos].subtitle}", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString("subtitle", arrayList[pos].subtitle)
+        bundle.putString("date", arrayList[pos].date)
+
+        val displayNoteFragment = DisplayNoteFragment()
+        displayNoteFragment.arguments = bundle
+        initializeFragmentTransactions(displayNoteFragment, arrayList[pos].title)
     }
 }

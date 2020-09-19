@@ -10,4 +10,5 @@
     <string name="delete_string">Delete</string>
     <string name="subtitle_hint">Enter note content here</string>
     <string name="edit_string">Edit</string>
+    <string name="display_note_title">%1d</string>
 </resources>

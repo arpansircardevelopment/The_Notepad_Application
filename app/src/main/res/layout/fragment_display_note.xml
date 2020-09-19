@@ -5,21 +5,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/title_card_view"
-        style="@style/CardViewStyle"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/display_note_fragment_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/add_edit_fragment_title_text_view"
-            style="@style/EditTextStyle"
-            android:fontFamily="@font/nunito_semibold"
-            android:textAlignment="center"
-            android:textSize="22sp" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/subtitle_card_view"
@@ -29,10 +24,10 @@
         app:layout_constraintBottom_toTopOf="@id/display_note_fragment_edit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_card_view">
+        app:layout_constraintTop_toBottomOf="@id/display_note_fragment_date_text_view">
 
         <TextView
-            android:id="@+id/add_edit_fragment_subtitle_edit_text"
+            android:id="@+id/display_note_fragment_subtitle_text_view"
             style="@style/EditTextStyle"
             android:fontFamily="@font/nunito"
             android:gravity="start"
