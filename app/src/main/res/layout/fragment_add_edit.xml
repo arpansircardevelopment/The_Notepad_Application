@@ -5,32 +5,48 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <EditText
-        android:id="@+id/add_edit_fragment_title_edit_text"
-        style="@style/EditTextStyle"
-        android:fontFamily="@font/nunito_semibold"
-        android:hint="@string/title_hint"
-        android:singleLine="true"
-        android:textAlignment="center"
-        android:textSize="22sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/title_card_view"
+        style="@style/CardViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/add_edit_fragment_subtitle_edit_text"
-        style="@style/EditTextStyle"
+        <EditText
+            android:id="@+id/add_edit_fragment_title_edit_text"
+            style="@style/EditTextStyle"
+            android:fontFamily="@font/nunito_semibold"
+            android:hint="@string/title_hint"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/subtitle_card_view"
+        style="@style/CardViewStyle"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/nunito"
-        android:gravity="start"
-        android:hint="@string/subtitle_hint"
-        android:inputType="textMultiLine"
-        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/add_edit_fragment_save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_edit_fragment_title_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/title_card_view">
+
+        <EditText
+            android:id="@+id/add_edit_fragment_subtitle_edit_text"
+            style="@style/EditTextStyle"
+            android:fontFamily="@font/nunito"
+            android:gravity="start"
+            android:hint="@string/subtitle_hint"
+            android:inputType="textMultiLine"
+            android:singleLine="true"
+            android:textSize="20sp"
+            android:importantForAutofill="no" />
+
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/add_edit_fragment_save_button"
