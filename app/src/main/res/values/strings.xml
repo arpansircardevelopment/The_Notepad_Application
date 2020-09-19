@@ -9,4 +9,5 @@
     <string name="edit_button_string">Edit</string>
     <string name="delete_string">Delete</string>
     <string name="subtitle_hint">Enter note content here</string>
+    <string name="edit_string">Edit</string>
 </resources>
