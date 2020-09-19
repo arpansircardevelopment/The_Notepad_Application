@@ -29,7 +29,7 @@
         android:id="@+id/subtitle_card_view"
         style="@style/CardViewStyle"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/add_edit_fragment_save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
