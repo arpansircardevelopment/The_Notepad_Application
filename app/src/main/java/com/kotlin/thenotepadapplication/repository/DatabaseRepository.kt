@@ -86,10 +86,12 @@ class DatabaseRepository(context: Context) {
 
         with(cursor) {
             while (cursor.moveToNext()) {
-                val titleItem = getString(getColumnIndex(NotepadContract.NotepadEntry.COLUMN_TITLE))
+                val titleItem =
+                    getString(getColumnIndex(NotepadContract.NotepadEntry.COLUMN_TITLE))
                 val subtitleItem =
                     getString(getColumnIndex(NotepadContract.NotepadEntry.COLUMN_SUBTITLE))
-                val dateItem = getString(getColumnIndex(NotepadContract.NotepadEntry.COLUMN_DATE))
+                val dateItem =
+                    getString(getColumnIndex(NotepadContract.NotepadEntry.COLUMN_DATE))
                 databaseItems.add(NotepadEntryPOJO(titleItem, subtitleItem, dateItem))
             }
         }

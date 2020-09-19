@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         initializeToolbar(R.string.app_name)
         initializeRecyclerView()
         setOnClickListenerMethod()
-        queryMethod()
+        setRecyclerView()
     }
 
     /**Governing method that overlooks all fragment transactions taking place
@@ -60,10 +60,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     }
 
     /**The queryMethod() queries all the entries present in the database, only to be displayed in the RecyclerView*/
-    private fun queryMethod() {
+    private fun queryMethod(): ArrayList<NotepadEntryPOJO> {
         val databaseRepository = DatabaseRepository(applicationContext)
-        val arrayList: ArrayList<NotepadEntryPOJO> = databaseRepository.queryMethod()
-        val adapter = RecyclerViewAdapter(arrayList)
+        return databaseRepository.queryMethod()
+    }
+
+    private fun setRecyclerView() {
+        val arrayList = queryMethod()
+        val adapter = RecyclerViewAdapter(arrayList, this)
         activityMainRecyclerView.adapter = adapter
     }
 
@@ -90,7 +94,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private fun deleteAllNotesMethod() {
         val databaseRepository = DatabaseRepository(applicationContext)
         databaseRepository.deleteMethod()
-        queryMethod()
+        setRecyclerView()
         Toast.makeText(applicationContext, "All Notes Deleted", Toast.LENGTH_SHORT).show()
     }
 
@@ -135,7 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
             activityMainFragmentConstraintLayout.visibility = View.INVISIBLE
             activityMainConstraintLayout.visibility = View.VISIBLE
             initializeToolbar(R.string.app_name)
-            queryMethod()
+            setRecyclerView()
         } else {
             super.onBackPressed()
         }
@@ -148,5 +152,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     /**Interface method to facilitate fragment-to-activity communication*/
     override fun triggerOnBackPressed() {
         onBackPressed()
+    }
+
+    override fun onNoteClicked(pos: Int) {
+        val arrayList: ArrayList<NotepadEntryPOJO> = queryMethod()
+        Toast.makeText(applicationContext, "${arrayList[pos].title}\n${arrayList[pos].subtitle}", Toast.LENGTH_SHORT).show()
     }
 }

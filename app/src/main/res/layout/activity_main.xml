@@ -54,7 +54,7 @@
             android:id="@+id/activity_main_floating_action_button"
             style="@style/FloatingButtonStyle"
             android:layout_marginEnd="25sp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25sp"
             android:backgroundTint="@color/color_edit_text_stroke"
             android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
