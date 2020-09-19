@@ -5,39 +5,43 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/display_title_text_view"
-        style="@style/EditTextStyle"
-        android:fontFamily="@font/nunito_semibold"
-        android:textAlignment="center"
-        android:textSize="22sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/title_card_view"
+        style="@style/CardViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/display_subtitle_text_view"
-        style="@style/EditTextStyle"
+        <TextView
+            android:id="@+id/add_edit_fragment_title_text_view"
+            style="@style/EditTextStyle"
+            android:fontFamily="@font/nunito_semibold"
+            android:importantForAutofill="no"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/subtitle_card_view"
+        style="@style/CardViewStyle"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/nunito"
-        android:gravity="start"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/display_title_text_view" />
-
-    <Button
-        android:id="@+id/edit_button"
-        style="@style/ButtonStyle"
-        android:fontFamily="@font/nunito_extrabold"
-        android:text="@string/edit_button_string"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_card_view">
+
+        <EditText
+            android:id="@+id/add_edit_fragment_subtitle_edit_text"
+            style="@style/EditTextStyle"
+            android:fontFamily="@font/nunito"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
