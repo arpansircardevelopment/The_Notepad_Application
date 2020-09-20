@@ -27,12 +27,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private lateinit var activityMainFloatingActionButton: FloatingActionButton
     private lateinit var activityMainDeleteFloatingActionButton: FloatingActionButton
 
+    private var lastFragment: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeWidgets()
-        initializeToolbar(getString(R.string.app_name))
+        initializeToolbar()
         initializeRecyclerView()
         setOnClickListenerMethod()
         setRecyclerView()
@@ -43,9 +45,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
      * Next, depending on the function to be performed, it then segregates the work functions in:
      * 1. the initializeToolbar() method
      * 2. the performFragmentTransactionMethod() method*/
-    private fun initializeFragmentTransactions(fragment: Fragment, toolbarTitle: String) {
+    private fun initializeFragmentTransactions(fragment: Fragment) {
         activityMainConstraintLayout.visibility = View.INVISIBLE
-        initializeToolbar(toolbarTitle)
         performFragmentTransactionMethod(fragment)
         activityMainFragmentConstraintLayout.visibility = View.VISIBLE
     }
@@ -55,8 +56,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     private fun performFragmentTransactionMethod(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        if (lastFragment != null) {
+            fragmentTransaction.remove(lastFragment!!)
+        }
         fragmentTransaction.replace(R.id.activity_main_fragment_constraint_layout, fragment)
         fragmentTransaction.commit()
+        lastFragment = fragment
     }
 
     /**The queryMethod() queries all the entries present in the database, only to be displayed in the RecyclerView*/
@@ -74,12 +79,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     /**Method to initialize the widgets present in the View*/
     private fun initializeWidgets() {
         activityMainToolbar = findViewById(R.id.activity_main_toolbar_layout)
-        activityMainConstraintLayout = findViewById(R.id.activity_main_constraint_layout)
         activityMainFloatingActionButton = findViewById(R.id.activity_main_floating_action_button)
         activityMainFragmentConstraintLayout =
             findViewById(R.id.activity_main_fragment_constraint_layout)
         activityMainDeleteFloatingActionButton =
             findViewById(R.id.activity_main_delete_floating_action_button)
+        activityMainConstraintLayout = findViewById(R.id.activity_main_constraint_layout)
     }
 
     /**A separate method to initialize the RecyclerView and the other aspects associated with it*/
@@ -99,9 +104,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     }
 
     /**Method to initialize the Activity toolbar*/
-    private fun initializeToolbar(toolbarTitle: String) {
-        setSupportActionBar(activityMainToolbar)
-        supportActionBar!!.setTitle(toolbarTitle)
+    private fun initializeToolbar() {
+        activityMainToolbar.title = getString(R.string.app_name)
     }
 
     /**Method to set the onClickListeners for all the required views in the application.*/
@@ -119,8 +123,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         * This is placed and displayed in the toolbar when the new note is being created. */
         if (view == activityMainFloatingActionButton) {
             val addEditFragment = AddEditFragment()
-            val titleString: Int = R.string.new_note_string
-            initializeFragmentTransactions(addEditFragment, getString(titleString))
+            initializeFragmentTransactions(addEditFragment)
         }
 
         /*If the user clicks on the activityMainDeleteFloatingActionButton, the deleteAllNotesMethod().
@@ -138,7 +141,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         if (activityMainConstraintLayout.visibility == View.INVISIBLE) {
             activityMainFragmentConstraintLayout.visibility = View.INVISIBLE
             activityMainConstraintLayout.visibility = View.VISIBLE
-            initializeToolbar(getString(R.string.app_name))
+            initializeToolbar()
             setRecyclerView()
         } else {
             super.onBackPressed()
@@ -157,11 +160,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
     override fun onNoteClicked(pos: Int) {
         val arrayList: ArrayList<NotepadEntryPOJO> = queryMethod()
         val bundle = Bundle()
+        bundle.putString("title", arrayList[pos].title)
         bundle.putString("subtitle", arrayList[pos].subtitle)
         bundle.putString("date", arrayList[pos].date)
 
         val displayNoteFragment = DisplayNoteFragment()
         displayNoteFragment.arguments = bundle
-        initializeFragmentTransactions(displayNoteFragment, arrayList[pos].title)
+        initializeFragmentTransactions(displayNoteFragment)
     }
 }

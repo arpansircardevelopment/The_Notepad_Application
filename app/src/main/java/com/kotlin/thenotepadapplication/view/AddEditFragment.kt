@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.kotlin.thenotepadapplication.R
 import com.kotlin.thenotepadapplication.model.NotepadEntryPOJO
@@ -16,6 +17,7 @@ import java.util.*
 
 class AddEditFragment : Fragment(), View.OnClickListener {
 
+    private lateinit var fragmentAddEditToolbar: Toolbar
     private lateinit var fragmentAddEditSaveButton: Button
     private lateinit var fragmentAddEditTitleTextView: TextView
     private lateinit var fragmentAddEditSubtitleTextView: TextView
@@ -28,6 +30,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_add_edit, container, false)
         initializeWidgets(view)
+        setFragmentTitle()
         setOnClickListenerMethod()
         return view
     }
@@ -69,6 +72,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
 
     /**Method to initializeWidgets present in the Fragment.*/
     private fun initializeWidgets(view: View) {
+        fragmentAddEditToolbar = view.findViewById(R.id.fragment_add_edit_toolbar_layout)
         fragmentAddEditSaveButton = view.findViewById(R.id.add_edit_fragment_save_button)
         fragmentAddEditTitleTextView = view.findViewById(R.id.add_edit_fragment_title_edit_text)
         fragmentAddEditSubtitleTextView =
@@ -81,8 +85,12 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         fragmentAddEditSaveButton.setOnClickListener(this)
     }
 
+    private fun setFragmentTitle() {
+        fragmentAddEditToolbar.setTitle(R.string.new_note_string)
+
+    }
+
     companion object {
         private const val TAG = "AddEditFragment"
     }
-
 }

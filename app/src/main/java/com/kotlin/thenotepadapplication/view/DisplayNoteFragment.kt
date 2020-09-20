@@ -10,6 +10,7 @@ import com.kotlin.thenotepadapplication.R
 
 class DisplayNoteFragment : Fragment(), View.OnClickListener {
 
+    private lateinit var title: String
     private lateinit var subtitle: String
     private lateinit var date: String
 
@@ -19,6 +20,7 @@ class DisplayNoteFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        title = this.arguments?.getString("title").toString()
         subtitle = this.arguments?.getString("subtitle").toString()
         date = this.arguments?.getString("date").toString()
     }
@@ -52,7 +54,7 @@ class DisplayNoteFragment : Fragment(), View.OnClickListener {
         fragmentDisplayNoteEditButton.setOnClickListener(this)
     }
 
-    override fun onClick(p0: View?) {
+    override fun onClick(view: View?) {
 
     }
 
