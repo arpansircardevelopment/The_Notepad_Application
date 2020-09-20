@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.kotlin.thenotepadapplication.R
 
@@ -14,6 +15,7 @@ class DisplayNoteFragment : Fragment(), View.OnClickListener {
     private lateinit var subtitle: String
     private lateinit var date: String
 
+    private lateinit var fragmentDisplayNoteToolbar: Toolbar
     private lateinit var fragmentDisplayNoteDateTextView: TextView
     private lateinit var fragmentDisplayNoteSubtitleTextView: TextView
     private lateinit var fragmentDisplayNoteEditButton: TextView
@@ -43,9 +45,11 @@ class DisplayNoteFragment : Fragment(), View.OnClickListener {
         fragmentDisplayNoteSubtitleTextView =
             view.findViewById(R.id.display_note_fragment_subtitle_text_view)
         fragmentDisplayNoteEditButton = view.findViewById(R.id.display_note_fragment_edit_button)
+        fragmentDisplayNoteToolbar = view.findViewById(R.id.display_note_fragment_toolbar_layout)
     }
 
     private fun setWidgetValues() {
+        fragmentDisplayNoteToolbar.title = title
         fragmentDisplayNoteDateTextView.text = date
         fragmentDisplayNoteSubtitleTextView.text = subtitle
     }
