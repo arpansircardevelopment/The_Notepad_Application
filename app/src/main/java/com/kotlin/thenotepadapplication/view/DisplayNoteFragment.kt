@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.kotlin.thenotepadapplication.R
 
-class DisplayNoteFragment : Fragment(), View.OnClickListener {
+class DisplayNoteFragment : Fragment() {
 
     private lateinit var title: String
     private lateinit var subtitle: String
@@ -35,31 +35,23 @@ class DisplayNoteFragment : Fragment(), View.OnClickListener {
         val view: View = inflater.inflate(R.layout.fragment_display_note, container, false)
         initializeWidgets(view)
         setWidgetValues()
-        setOnClickListener()
         return view
     }
 
+    /**Method to initialize all the widgets present in the Fragment.*/
     private fun initializeWidgets(view: View) {
         fragmentDisplayNoteDateTextView =
             view.findViewById(R.id.display_note_fragment_date_text_view)
         fragmentDisplayNoteSubtitleTextView =
             view.findViewById(R.id.display_note_fragment_subtitle_text_view)
-        fragmentDisplayNoteEditButton = view.findViewById(R.id.display_note_fragment_edit_button)
         fragmentDisplayNoteToolbar = view.findViewById(R.id.display_note_fragment_toolbar_layout)
     }
 
+    /**Method to initialize the initial values of all the widgets */
     private fun setWidgetValues() {
         fragmentDisplayNoteToolbar.title = title
         fragmentDisplayNoteDateTextView.text = date
         fragmentDisplayNoteSubtitleTextView.text = subtitle
-    }
-
-    private fun setOnClickListener() {
-        fragmentDisplayNoteEditButton.setOnClickListener(this)
-    }
-
-    override fun onClick(view: View?) {
-
     }
 
 }

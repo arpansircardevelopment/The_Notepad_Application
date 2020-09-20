@@ -70,7 +70,7 @@ class AddEditFragment : Fragment(), View.OnClickListener {
         return SimpleDateFormat("dd-MM-yy", Locale.US).format(Date())
     }
 
-    /**Method to initializeWidgets present in the Fragment.*/
+    /**Method to initialize all the widgets present in the Fragment.*/
     private fun initializeWidgets(view: View) {
         fragmentAddEditToolbar = view.findViewById(R.id.fragment_add_edit_toolbar_layout)
         fragmentAddEditSaveButton = view.findViewById(R.id.add_edit_fragment_save_button)

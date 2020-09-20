@@ -12,8 +12,6 @@ class RecyclerViewAdapter(
     private val iMainActivity: IMainActivity
 ) : RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>() {
 
-
-
     /**The onCreateViewHolder() is used for returning every single view present in the list.*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -37,6 +35,7 @@ class RecyclerViewAdapter(
         View.OnClickListener {
         lateinit var iMainActivity: IMainActivity
 
+        /*The bindItems method is actually responsible for handling every individual item that is being placed into the RecyclerView.*/
         fun bindItems(notepadEntryPOJO: NotepadEntryPOJO, iMainActivity: IMainActivity) {
             val titleTextView: TextView = itemView.findViewById(R.id.title_textView)
             val subtitleTextView: TextView = itemView.findViewById(R.id.subtitle_textView)
@@ -69,6 +68,7 @@ class RecyclerViewAdapter(
             }
         }
 
+        /**Method to transfer the clicked adapter position to the MainActivity.*/
         override fun onClick(view: View?) {
             iMainActivity.onNoteClicked(adapterPosition)
         }

@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         return databaseRepository.queryMethod()
     }
 
+    /**Function to set the RecyclerView every time there's a change in the database contents.*/
     private fun setRecyclerView() {
         val arrayList = queryMethod()
         val adapter = RecyclerViewAdapter(arrayList, this)
@@ -148,15 +149,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, IMainActivity {
         }
     }
 
-    companion object {
-        private const val TAG = "MainActivity"
-    }
-
     /**Interface method to facilitate fragment-to-activity communication*/
     override fun triggerOnBackPressed() {
         onBackPressed()
     }
 
+    /**Interface method that gets the adapter position for the note that has been clicked.
+     * This adapter position is then used to obtain the note details from the arrayList.
+     * The details are then sent to the DisplayFragment via a Bundle to be displayed to the user.*/
     override fun onNoteClicked(pos: Int) {
         val arrayList: ArrayList<NotepadEntryPOJO> = queryMethod()
         val bundle = Bundle()
